@@ -89,7 +89,11 @@ getsubj <- function(i,reuse=T){
   # return(as.data.frame(output))
   #}
 
+
+  cat("create dir ", dirname(pertrialoutput),"\n")
   if(!file.exists(dirname(pertrialoutput))) { dir.create(dirname(pertrialoutput),recursive=T)}
+
+  cat("out to ", pertrialoutput,"\n")
   write.table(file=pertrialoutput, cor.ErrCor.AS, row.names=F, quote=F, sep="\t")
 
   r <- tryCatch({ 

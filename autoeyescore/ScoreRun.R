@@ -209,7 +209,7 @@ savePlots <- function(sac.df,g,drv,filename,writetopdf) {
 dropTrialSacs <- function(subj,runtype,trl,xdatCode,reason,allsacs,showplot=F,savedas=NULL,writetopdf=F,run=0,rundate=0) {
    cat(sprintf('DROP: %s.%s.%s.%s %s\n',subj,rundate, run, trl,reason))
    ## write what is dropped
-   outputdir=paste(c("/Users/ncanda/Documents/Research/NCANDA/data_eye/A", sprintf("%03d", subj),"/dropped_info"),sep="", collapse="")
+   outputdir=paste(c("./drop/", sprintf("%03d", subj),"/dropped_info"),sep="", collapse="")
    if(!file.exists(outputdir)) { dir.create(outputdir,recursive=T) }
    for(trial in trl) {
 	   output_filename <- sprintf('%s/%03d_y%s_run%s_trial%s_dropped.txt', outputdir,subj,rundate,run,trial)
@@ -929,7 +929,8 @@ getSacs <- function(eydfile, subj, run, runtype,rundate=0,onlyontrials=NULL,writ
     #cat('mean', base.val , '\n')
 
     # output dir to save images/write dropped
-       outputdir=paste(c("/Users/ncanda/Documents/Research/NCANDA/data_eye/", sprintf("%03d", subj),"/dropped_info"),sep="", collapse="")
+       outputdir=paste(c("./drop/",basename(gsub('.txt$','',eydfile))),sep="", collapse="")
+       cat("outputdir ", outputdir,"\n")
  	
     ## PLOT -- only if we are told to
     if(showplot | writetopdf) {

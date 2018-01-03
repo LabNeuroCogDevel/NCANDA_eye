@@ -63,21 +63,22 @@ names(sac.thresholds)<-1:4
 
 ## FUNCTIONS
 # where are the files?
-filebasedir <- 'RingReward/txt'
+filebasedir <- 'scored'
 
 
 getFiles <- function(filesFrom) {
  files     <- Sys.glob(filesFrom)
  filebasedir <- dirname(filesFrom)
  # subjs are the number part of the filename
+ # A002_y4_160309_Eraw_2.txt
  file_name <- tail(strsplit(filesFrom, "/")[[1]], n=1)
  subject_year_run <- strsplit(file_name, "[^0-9]{1,10}")[[1]] # parse digits separated by anything other than digits
- splitfile <- data.frame(subj=subject_year_run[1]) # replace items in file name that are not a digit with ""
+ splitfile <- data.frame(subj=subject_year_run[2]) # replace items in file name that are not a digit with ""
  splitfile$type    <- 'RingReward'
  # date and run are need elsewhere
- splitfile$subj    <- as.character(splitfile$subj)  # was factor
- splitfile$date    <- subject_year_run[2]
- splitfile$run     <- subject_year_run[3]
+ splitfile$subj    <- as.numeric(as.character(splitfile$subj))  # was factor
+ splitfile$date    <- subject_year_run[3]
+ splitfile$run     <- subject_year_run[5]
  splitfile$file    <- files
  splitfile$id      <- splitfile$subj
  splitfile$savedas <- sprintf('%s/%s_y%s_run%s.sac.txt', filebasedir, splitfile$subj, splitfile$date, splitfile$run)
